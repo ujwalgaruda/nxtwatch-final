@@ -1,6 +1,7 @@
 import {RiMoonFill} from 'react-icons/ri'
 import {GiHamburgerMenu} from 'react-icons/gi'
 import {FiLogOut} from 'react-icons/fi'
+import Cookies from 'js-cookie'
 
 import {
   HeaderContainer,
@@ -13,10 +14,10 @@ import {
 } from './styledComponents'
 
 const Header = props => {
-  const {onLogoutClicked} = props
-
   const onLogoutIconPressed = () => {
-    onLogoutClicked()
+    const {history} = props
+    Cookies.remove('jwt_token')
+    history.replace('/login')
   }
 
   return (

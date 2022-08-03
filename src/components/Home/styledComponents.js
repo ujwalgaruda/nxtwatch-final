@@ -4,6 +4,7 @@ export const HomeResponsiveContainer = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 20px;
+  width: 80vw;
 `
 export const HomeWrapperContainer = styled.div`
   display: flex;
@@ -56,6 +57,9 @@ export const BannerButton = styled.button`
 export const CloseButton = styled.button`
   font-size: 24px;
   align-self: flex-start;
+  background-color: transparent;
+  outline: none;
+  border: none;
 `
 export const HomePageContainer = styled.div`
   background-color: #f9f9f9;

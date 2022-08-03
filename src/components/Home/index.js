@@ -187,12 +187,7 @@ class Home extends Component {
 
     return (
       <>
-        <Header onLogoutClicked={this.onLogoutClicked} />
         <HomeResponsiveContainer>
-          <SideBar
-            activeSideItem={activeSideItem}
-            onchangeSideOptionChange={this.onchangeSideOptionChange}
-          />
           <HomeWrapperContainer>
             {showBanner && this.renderBanner()}
             <HomePageContainer data-testid="home">

@@ -1,12 +1,19 @@
 import styled from 'styled-components'
+import {Link} from 'react-router-dom'
+import {AiFillHome} from 'react-icons/ai'
+import {HiFire} from 'react-icons/hi'
+import {SiYoutubegaming} from 'react-icons/si'
+import {BiListPlus} from 'react-icons/bi'
 
 export const SideBarContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 100vh;
+
   @media screen and (max-width: 768px) {
     display: none;
+    width: 200px;
   }
 `
 
@@ -26,8 +33,7 @@ export const SideBarListItem = styled.li`
   padding-bottom: 10px;
   margin-top: 10px;
   padding-left: 30px;
-  background-color: ${props => (props.isActive ? '#e2e8f0' : '#ffffff')};
-  color: ${props => (props.isActive ? '#ff0000' : '#475569')};
+  background-color: ${props => (props.isactive ? '#e2e8f0' : '#ffffff')};
 `
 export const SideBarIcon = styled.div`
   width: 30px;
@@ -39,7 +45,7 @@ export const SideBarItemText = styled.p`
   margin-top: 0;
   margin-left: 10px;
   margin-bottom: 0;
-  font-weight: ${props => (props.isActive ? 'bold' : '400')};
+  font-weight: ${props => (props.isactive ? 'bold' : '400')};
   color: #000000;
 `
 export const SideBarBottomContainer = styled.div`
@@ -65,4 +71,24 @@ export const BottomText = styled.p`
   font-family: 'Roboto';
   font-size: 16px;
   font-weight: bold;
+`
+export const StyledLink = styled(Link)`
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  color: ${props => (props.isactive ? '#ff0000' : '#475569')};
+`
+export const HomeIcon = styled(AiFillHome)`
+  width: 20px;
+`
+export const TrendingIcon = styled(HiFire)`
+  width: 20px;
+`
+
+export const GamingIcon = styled(SiYoutubegaming)`
+  width: 20px;
+`
+
+export const SavedVideosIcon = styled(BiListPlus)`
+  width: 20px;
 `

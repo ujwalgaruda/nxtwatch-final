@@ -1,13 +1,15 @@
 import styled from 'styled-components'
 
-export const GamingPageContainer = styled.div`
+export const SavedVideosPageContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
+  height: 100%;
 `
-export const GamingHeaderContainer = styled.div`
+
+export const SavedHeaderContainer = styled.div`
   background-color: #f9f9f9;
   display: flex;
   justify-content: flex-start;
@@ -18,7 +20,7 @@ export const GamingHeaderContainer = styled.div`
   padding-top: 15px;
   padding-bottom: 15px;
 `
-export const GamingIconContainer = styled.div`
+export const SavedIconContainer = styled.div`
   width: 50px;
   height: 50px;
   color: #ff0000;
@@ -28,18 +30,19 @@ export const GamingIconContainer = styled.div`
   align-items: center;
   border-radius: 75px;
 `
-export const GamingHeading = styled.h1`
+export const SavedHeading = styled.h1`
   font-family: 'Roboto';
   font-size: 24px;
   font-weight: bold;
   color: #231f20;
   margin-left: 20px;
 `
-export const GamingVideosGrp = styled.ul`
+
+export const SavedVideosGrp = styled.ul`
   list-style-type: none;
   padding-left: 0;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -47,17 +50,19 @@ export const GamingVideosGrp = styled.ul`
   padding-left: 20px;
   padding-right: 20px;
 `
-export const GamingVideoListItem = styled.li`
+
+export const SavedVideoListItem = styled.li`
   display: flex;
   list-style-type: none;
-  flex-direction: column;
-
+  width: 100%;
   align-items: center;
 `
-export const GamingVideoThumbnail = styled.img`
+
+export const SavedVideoThumbnail = styled.img`
   width: 300px;
 `
-export const GamingVideoDetailsContainer = styled.div`
+
+export const SavedVideoDetailsContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -109,17 +114,4 @@ export const NoVideosSubtitle = styled.p`
   font-size: 18px;
   color: #231f20;
   text-align: center;
-`
-export const RetryButton = styled.button`
-  border-radius: 10px;
-  background-color: #4f46e5;
-  border: none;
-  outline: none;
-  font-family: 'roboto';
-  font-size: 18px;
-  padding-top: 10px;
-  padding-left: 15px;
-  padding-right: 15px;
-  padding-bottom: 10px;
-  color: #ffffff;
 `

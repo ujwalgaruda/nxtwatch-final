@@ -89,3 +89,37 @@ export const ViewsDateText = styled.p`
   font-family: 'roboto';
   font-size: 14px;
 `
+export const FailureViewContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+export const NoVideosImage = styled.img`
+  width: 30%;
+`
+export const NoVideosHeader = styled.h1`
+  font-family: 'Roboto';
+  font-size: 24px;
+  color: #231f20;
+`
+export const NoVideosSubtitle = styled.p`
+  font-family: 'Roboto';
+  font-size: 18px;
+  color: #231f20;
+  text-align: center;
+`
+export const RetryButton = styled.button`
+  border-radius: 10px;
+  background-color: #4f46e5;
+  border: none;
+  outline: none;
+  font-family: 'roboto';
+  font-size: 18px;
+  padding-top: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 10px;
+  color: #ffffff;
+`

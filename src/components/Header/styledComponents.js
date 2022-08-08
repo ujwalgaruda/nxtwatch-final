@@ -1,5 +1,19 @@
 import styled from 'styled-components'
+import {Link} from 'react-router-dom'
 
+export const HeaderLargeContainer = styled.div`
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 50px;
+  padding-right: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`
 export const HeaderContainer = styled.div`
   display: flex;
   padding-top: 10px;
@@ -9,10 +23,7 @@ export const HeaderContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   @media screen and (min-width: 768px) {
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-left: 50px;
-    padding-right: 50px;
+    display: none;
   }
 `
 export const HeaderLogo = styled.img`
@@ -61,4 +72,8 @@ export const ThemeButton = styled.button`
   background-color: transparent;
   outline: none;
   border: none;
+`
+export const RedirectLink = styled(Link)`
+  text-decoration: none;
+  cursor: pointer;
 `

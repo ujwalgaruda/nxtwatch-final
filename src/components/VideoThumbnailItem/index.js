@@ -1,4 +1,6 @@
 import {BsDot} from 'react-icons/bs'
+import {Link} from 'react-router-dom'
+
 import {
   ThumbnailContainer,
   ThumbnailImage,
@@ -9,32 +11,31 @@ import {
   ChannelName,
   ViewsAndDateContainer,
   ViewsDateText,
+  StyledLink,
 } from './styledComponents'
 
 const VideoThumbnailItem = props => {
-  const {details, activeVideoSelected} = props
+  const {details} = props
   const {thumbnailUrl, id, title, channel, viewCount, publishedAt} = details
   const {name, profileImageUrl} = channel
 
-  const onVideoClicked = () => {
-    activeVideoSelected(id)
-  }
-
   return (
-    <ThumbnailContainer onClick={onVideoClicked}>
-      <ThumbnailImage src={thumbnailUrl} alt="video thumbnail" />
-      <ProfileAndTitleContainer>
-        <ProfileImage src={profileImageUrl} alt="channel logo" />
-        <TitleContainer>
-          <VideoTitle>{title}</VideoTitle>
-          <ChannelName>{name}</ChannelName>
-          <ViewsAndDateContainer>
-            <ViewsDateText>{viewCount}</ViewsDateText>
-            <BsDot />
-            <ViewsDateText>{publishedAt}</ViewsDateText>
-          </ViewsAndDateContainer>
-        </TitleContainer>
-      </ProfileAndTitleContainer>
+    <ThumbnailContainer>
+      <StyledLink to={`/videos/${id}`}>
+        <ThumbnailImage src={thumbnailUrl} alt="video thumbnail" />
+        <ProfileAndTitleContainer>
+          <ProfileImage src={profileImageUrl} alt="channel logo" />
+          <TitleContainer>
+            <VideoTitle>{title}</VideoTitle>
+            <ChannelName>{name}</ChannelName>
+            <ViewsAndDateContainer>
+              <ViewsDateText>{viewCount}</ViewsDateText>
+              <BsDot />
+              <ViewsDateText>{publishedAt}</ViewsDateText>
+            </ViewsAndDateContainer>
+          </TitleContainer>
+        </ProfileAndTitleContainer>
+      </StyledLink>
     </ThumbnailContainer>
   )
 }

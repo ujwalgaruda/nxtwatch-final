@@ -14,6 +14,11 @@ import {
   GamingVideoDetailsContainer,
   VideoTitle,
   VideoChannel,
+  FailureViewContainer,
+  NoVideosHeader,
+  NoVideosImage,
+  NoVideosSubtitle,
+  RetryButton,
 } from './styledComponents'
 
 const apiStatusConstants = {
@@ -27,12 +32,16 @@ class Gaming extends Component {
   state = {apiStatus: apiStatusConstants.initial, videosData: []}
 
   componentDidMount() {
-    this.getTrendingVideos()
+    this.getGamingVideos()
   }
 
-  getTrendingVideos = async () => {
+  onRetryButtonClicked = () => {
+    this.getGamingVideos()
+  }
+
+  getGamingVideos = async () => {
     this.setState({apiStatus: apiStatusConstants.inProgress})
-    const url = 'https://apis.ccbp.in/videos/gaming'
+    const url = 'https://apis.ccbp.in/videos/gamin'
     const jwtToken = Cookies.get('jwt_token')
     const options = {
       headers: {
@@ -61,18 +70,62 @@ class Gaming extends Component {
     }
   }
 
+  renderFailureView = () => (
+    <FailureViewContainer>
+      <NoVideosImage
+        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png"
+        alt="failure view"
+      />
+      <NoVideosHeader>Oops! Something Went Wrong</NoVideosHeader>
+      <NoVideosSubtitle>
+        We are having some trouble to complete your request. <br />
+        Please try again.
+      </NoVideosSubtitle>
+      <RetryButton onClick={this.onRetryButtonClicked}>Retry</RetryButton>
+    </FailureViewContainer>
+  )
+
   renderLoadingView = () => (
     <div data-testid="loader">
       <Loader type="ThreeDots" color="#0b69ff" height="50" width="50" />
     </div>
   )
 
+  renderGamingVideos = () => {
+    const {videosData} = this.state
+
+    return (
+      <>
+        <GamingHeaderContainer>
+          <GamingIconContainer>
+            <SiYoutubegaming size="30" />
+          </GamingIconContainer>
+          <GamingHeading>Gaming</GamingHeading>
+        </GamingHeaderContainer>
+        <GamingVideosGrp>
+          {videosData.map(eachItem => (
+            <GamingVideoListItem key={eachItem.id}>
+              <GamingVideoThumbnail
+                src={eachItem.thumbnailUrl}
+                alt="video thumbnail"
+              />
+              <GamingVideoDetailsContainer>
+                <VideoTitle>{eachItem.title}</VideoTitle>
+                <VideoChannel>{`${eachItem.viewCount} Watching Worldwide`}</VideoChannel>
+              </GamingVideoDetailsContainer>
+            </GamingVideoListItem>
+          ))}
+        </GamingVideosGrp>
+      </>
+    )
+  }
+
   renderAllVideos = () => {
     const {apiStatus} = this.state
 
     switch (apiStatus) {
       case apiStatusConstants.success:
-        return this.renderTrendingVideos()
+        return this.renderGamingVideos()
       case apiStatusConstants.failure:
         return this.renderFailureView()
       case apiStatusConstants.inProgress:
@@ -83,30 +136,8 @@ class Gaming extends Component {
   }
 
   render() {
-    const {videosData} = this.state
-    console.log('trending called')
-
-    return (
-      <GamingPageContainer>
-        <GamingHeaderContainer>
-          <GamingIconContainer>
-            <SiYoutubegaming size="30" />
-          </GamingIconContainer>
-          <GamingHeading>Gaming</GamingHeading>
-        </GamingHeaderContainer>
-        <GamingVideosGrp>
-          {videosData.map(eachItem => (
-            <GamingVideoListItem key={eachItem.id}>
-              <GamingVideoThumbnail src={eachItem.thumbnailUrl} />
-              <GamingVideoDetailsContainer>
-                <VideoTitle>{eachItem.title}</VideoTitle>
-                <VideoChannel>{`${eachItem.viewCount} Watching Worldwide`}</VideoChannel>
-              </GamingVideoDetailsContainer>
-            </GamingVideoListItem>
-          ))}
-        </GamingVideosGrp>
-      </GamingPageContainer>
-    )
+    console.log(this.state)
+    return <GamingPageContainer>{this.renderAllVideos()}</GamingPageContainer>
   }
 }
 

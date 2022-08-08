@@ -10,7 +10,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+.bg-container {
+  display: block;
+}
 .main-view {
   display: flex;
   flex-direction: row;

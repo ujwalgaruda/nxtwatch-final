@@ -4,7 +4,7 @@ export const HomeResponsiveContainer = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 20px;
-  width: 80vw;
+  width: fit-content;
 `
 export const HomeWrapperContainer = styled.div`
   display: flex;
@@ -139,4 +139,5 @@ export const RetryButton = styled.button`
   padding-left: 15px;
   padding-right: 15px;
   padding-bottom: 10px;
+  color: #ffffff;
 `

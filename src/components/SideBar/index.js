@@ -12,33 +12,37 @@ import {
   BottomHeading,
   BottomIcon,
   BottomText,
+  StyledLink,
 } from './styledComponents'
 
 const sideBarOptions = [
-  {name: 'Home', id: '1', icon: <AiFillHome />},
-  {name: 'Trending', id: '2', icon: <HiFire />},
-  {name: 'Gaming', id: '3', icon: <SiYoutubegaming />},
-  {name: 'Saved Videos', id: '4', icon: <BiListPlus />},
+  {name: 'Home', id: '1', icon: <AiFillHome size="20" />, to: '/'},
+  {name: 'Trending', id: '2', icon: <HiFire size="20" />, to: '/Trending'},
+  {name: 'Gaming', id: '3', icon: <SiYoutubegaming size="20" />, to: '/Gaming'},
+  {
+    name: 'Saved Videos',
+    id: '4',
+    icon: <BiListPlus size="20" />,
+    to: '/saved-videos',
+  },
 ]
 
 const SideBar = props => {
   const renderSideBarOptions = () =>
     sideBarOptions.map(eachItem => {
-      const {activeSideItem, onchangeSideOptionChange} = props
-      const onSideOptionClicked = () => {
-        onchangeSideOptionChange(eachItem.name)
-      }
+      const {activeSideItem} = props
 
       return (
         <SideBarListItem
           key={eachItem.id}
-          onClick={onSideOptionClicked}
           isActive={activeSideItem === eachItem.name}
         >
-          {eachItem.icon}
-          <SideBarItemText isActive={activeSideItem === eachItem.name}>
-            {eachItem.name}
-          </SideBarItemText>
+          <StyledLink to={eachItem.to}>
+            {eachItem.icon}
+            <SideBarItemText isActive={activeSideItem === eachItem.name}>
+              {eachItem.name}
+            </SideBarItemText>
+          </StyledLink>
         </SideBarListItem>
       )
     })

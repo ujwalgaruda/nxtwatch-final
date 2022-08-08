@@ -17,6 +17,11 @@ import {
   VideoChannel,
   ViewsAndDateContainer,
   ViewsDateText,
+  FailureViewContainer,
+  NoVideosHeader,
+  NoVideosImage,
+  NoVideosSubtitle,
+  RetryButton,
 } from './styledComponents'
 
 const apiStatusConstants = {
@@ -30,6 +35,10 @@ class Trending extends Component {
   state = {apiStatus: apiStatusConstants.initial, videosData: []}
 
   componentDidMount() {
+    this.getTrendingVideos()
+  }
+
+  onRetryButtonClicked = () => {
     this.getTrendingVideos()
   }
 
@@ -69,11 +78,60 @@ class Trending extends Component {
     }
   }
 
+  renderFailureView = () => (
+    <FailureViewContainer>
+      <NoVideosImage
+        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png"
+        alt="failure view"
+      />
+      <NoVideosHeader>Oops! Something Went Wrong</NoVideosHeader>
+      <NoVideosSubtitle>
+        We are having some trouble to complete your request. <br />
+        Please try again.
+      </NoVideosSubtitle>
+      <RetryButton onClick={this.onRetryButtonClicked}>Retry</RetryButton>
+    </FailureViewContainer>
+  )
+
   renderLoadingView = () => (
     <div data-testid="loader">
       <Loader type="ThreeDots" color="#0b69ff" height="50" width="50" />
     </div>
   )
+
+  renderTrendingVideos = () => {
+    const {videosData} = this.state
+
+    return (
+      <>
+        <TrendingHeaderContainer>
+          <TrendingIconContainer>
+            <HiFire size="30" />
+          </TrendingIconContainer>
+          <TrendingHeading>Trending</TrendingHeading>
+        </TrendingHeaderContainer>
+        <TrendingVideosGrp>
+          {videosData.map(eachItem => (
+            <TrendingVideoListItem key={eachItem.id}>
+              <TrendingVideoThumbnail
+                src={eachItem.thumbnailUrl}
+                alt="video thumbnail"
+              />
+              <TrendingVideoDetailsContainer>
+                <VideoTitle>{eachItem.title}</VideoTitle>
+                <VideoChannel>{eachItem.channel.name}</VideoChannel>
+                <ViewsAndDateContainer>
+                  <ViewsDateText>{eachItem.viewCount}</ViewsDateText>
+                  <BsDot />
+                  <ViewsDateText>{eachItem.publishedAt}</ViewsDateText>
+                </ViewsAndDateContainer>
+              </TrendingVideoDetailsContainer>
+            </TrendingVideoListItem>
+          ))}
+        </TrendingVideosGrp>
+      </>
+    )
+  }
 
   renderAllVideos = () => {
     const {apiStatus} = this.state
@@ -91,34 +149,8 @@ class Trending extends Component {
   }
 
   render() {
-    const {videosData} = this.state
-    console.log('trending called')
-
     return (
-      <TrendingPageContainer>
-        <TrendingHeaderContainer>
-          <TrendingIconContainer>
-            <HiFire size="30" />
-          </TrendingIconContainer>
-          <TrendingHeading>Trending</TrendingHeading>
-        </TrendingHeaderContainer>
-        <TrendingVideosGrp>
-          {videosData.map(eachItem => (
-            <TrendingVideoListItem key={eachItem.id}>
-              <TrendingVideoThumbnail src={eachItem.thumbnailUrl} />
-              <TrendingVideoDetailsContainer>
-                <VideoTitle>{eachItem.title}</VideoTitle>
-                <VideoChannel>{eachItem.channel.name}</VideoChannel>
-                <ViewsAndDateContainer>
-                  <ViewsDateText>{eachItem.viewCount}</ViewsDateText>
-                  <BsDot />
-                  <ViewsDateText>{eachItem.publishedAt}</ViewsDateText>
-                </ViewsAndDateContainer>
-              </TrendingVideoDetailsContainer>
-            </TrendingVideoListItem>
-          ))}
-        </TrendingVideosGrp>
-      </TrendingPageContainer>
+      <TrendingPageContainer>{this.renderAllVideos()}</TrendingPageContainer>
     )
   }
 }

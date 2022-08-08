@@ -1,11 +1,12 @@
 import styled from 'styled-components'
+import {Link} from 'react-router-dom'
 
 export const ThumbnailContainer = styled.li`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: 50%;
+  width: 100%;
   max-width: 350px;
   list-style-type: none;
   padding-left: 0;
@@ -59,4 +60,8 @@ export const ViewsAndDateContainer = styled.div`
 export const ViewsDateText = styled.p`
   font-family: 'roboto';
   font-size: 14px;
+`
+export const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: #000000;
 `

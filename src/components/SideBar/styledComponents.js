@@ -9,11 +9,12 @@ export const SideBarContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100vh;
-
+  height: 90vh;
+  width: 300px;
+  padding-left: 30px;
   @media screen and (max-width: 768px) {
     display: none;
-    width: 200px;
+    position: absolute;
   }
 `
 
@@ -32,7 +33,7 @@ export const SideBarListItem = styled.li`
   padding-top: 10px;
   padding-bottom: 10px;
   margin-top: 10px;
-  padding-left: 30px;
+
   background-color: ${props => (props.isactive ? '#e2e8f0' : '#ffffff')};
 `
 export const SideBarIcon = styled.div`
@@ -61,21 +62,23 @@ export const BottomHeading = styled.p`
 `
 export const BottomIconsContainer = styled.div`
   display: flex;
-  justify-content: space-around;
+  gap: 10px;
   width: 100%;
 `
 export const BottomIcon = styled.img`
-  width: 50px;
+  width: 30px;
 `
 export const BottomText = styled.p`
   font-family: 'Roboto';
   font-size: 16px;
   font-weight: bold;
+  width: 80%;
 `
 export const StyledLink = styled(Link)`
   text-decoration: none;
   display: flex;
   align-items: center;
+
   color: ${props => (props.isactive ? '#ff0000' : '#475569')};
 `
 export const HomeIcon = styled(AiFillHome)`
@@ -86,7 +89,7 @@ export const TrendingIcon = styled(HiFire)`
 `
 
 export const GamingIcon = styled(SiYoutubegaming)`
-  width: 20px;
+  width: 10px;
 `
 
 export const SavedVideosIcon = styled(BiListPlus)`

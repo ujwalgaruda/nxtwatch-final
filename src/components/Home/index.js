@@ -40,7 +40,6 @@ class Home extends Component {
     showBanner: true,
     videosData: [],
     apiStatus: apiStatusConstants.initial,
-    activeVideoId: '',
     activeSideItem: 'Home',
   }
 
@@ -72,6 +71,10 @@ class Home extends Component {
 
   onchangeSideOptionChange = name => {
     this.setState({activeSideItem: name})
+  }
+
+  onRetryButtonClicked = () => {
+    this.getHomePageVideos()
   }
 
   getHomePageVideos = async () => {
@@ -143,11 +146,7 @@ class Home extends Component {
       <HomeVideosContainer>
         <HomeVideosGroup>
           {videosData.map(eachItem => (
-            <VideoThumbnailItem
-              key={eachItem.id}
-              details={eachItem}
-              activeVideoSelected={this.activeVideoSelected}
-            />
+            <VideoThumbnailItem key={eachItem.id} details={eachItem} />
           ))}
         </HomeVideosGroup>
       </HomeVideosContainer>
@@ -161,7 +160,7 @@ class Home extends Component {
         <NoVideosSubtitle>
           Try different key words or remove search filter
         </NoVideosSubtitle>
-        <RetryButton onClick={this.onRetryButtonClicked} />
+        <RetryButton onClick={this.onRetryButtonClicked}>Retry</RetryButton>
       </HomeVideosContainer>
     )
   }
@@ -183,7 +182,6 @@ class Home extends Component {
 
   render() {
     const {showBanner, searchText, activeSideItem} = this.state
-    console.log('Render called')
 
     return (
       <>

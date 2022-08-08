@@ -10,7 +10,9 @@ import {
   HeaderLargeIconsContainer,
   ProfileImageIcon,
   LogoutButton,
+  HeaderLargeContainer,
   ThemeButton,
+  RedirectLink,
 } from './styledComponents'
 
 const Header = props => {
@@ -21,31 +23,45 @@ const Header = props => {
   }
 
   return (
-    <HeaderContainer>
-      <HeaderLogo
-        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
-        alt="website logo"
-      />
-      <HeaderIconsContainer>
-        <ThemeButton type="button" data-testid="theme">
-          <RiMoonFill size="25" />
-        </ThemeButton>
-        <GiHamburgerMenu size="25" />
-        <FiLogOut onClick={onLogoutIconPressed} size="25" />
-      </HeaderIconsContainer>
-      <HeaderLargeIconsContainer>
-        <ThemeButton type="button" data-testid="theme">
-          <RiMoonFill size="25" />
-        </ThemeButton>
-        <ProfileImageIcon
-          src="https://assets.ccbp.in/frontend/react-js/nxt-watch-profile-img.png"
-          alt="profile"
-        />
-        <LogoutButton type="button" onClick={onLogoutIconPressed}>
-          Logout
-        </LogoutButton>
-      </HeaderLargeIconsContainer>
-    </HeaderContainer>
+    <>
+      <HeaderContainer>
+        <RedirectLink to="/">
+          <HeaderLogo
+            src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
+            alt="website logo"
+          />
+        </RedirectLink>
+        <HeaderIconsContainer>
+          <ThemeButton type="button" data-testid="theme">
+            <RiMoonFill size="25" />
+          </ThemeButton>
+          <GiHamburgerMenu size="25" />
+          <FiLogOut onClick={onLogoutIconPressed} size="25" />
+        </HeaderIconsContainer>
+      </HeaderContainer>
+
+      <HeaderLargeContainer>
+        <RedirectLink to="/">
+          <HeaderLogo
+            src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
+            alt="website logo"
+          />
+        </RedirectLink>
+
+        <HeaderLargeIconsContainer>
+          <ThemeButton type="button" data-testid="theme">
+            <RiMoonFill size="25" />
+          </ThemeButton>
+          <ProfileImageIcon
+            src="https://assets.ccbp.in/frontend/react-js/nxt-watch-profile-img.png"
+            alt="profile"
+          />
+          <LogoutButton type="button" onClick={onLogoutIconPressed}>
+            Logout
+          </LogoutButton>
+        </HeaderLargeIconsContainer>
+      </HeaderLargeContainer>
+    </>
   )
 }
 

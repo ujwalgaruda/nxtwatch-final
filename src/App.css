@@ -9,11 +9,16 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
 }
 .bg-container {
   display: block;
 }
 .main-view {
   display: flex;
-  flex-direction: row;
+  height: 100vh;
+}
+.content {
+  width: 100%;
+  overflow: auto;
 }

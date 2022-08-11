@@ -9,6 +9,7 @@ import {
   TrendingHeaderContainer,
   TrendingIconContainer,
   TrendingHeading,
+  StyledLink,
   TrendingVideosGrp,
   TrendingVideoListItem,
   TrendingVideoThumbnail,
@@ -23,6 +24,7 @@ import {
   NoVideosSubtitle,
   RetryButton,
 } from './styledComponents'
+import ThemeContext from '../../context/ThemeContext'
 
 const apiStatusConstants = {
   initial: 'INITIAL',
@@ -79,18 +81,28 @@ class Trending extends Component {
   }
 
   renderFailureView = () => (
-    <FailureViewContainer>
-      <NoVideosImage
-        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png"
-        alt="failure view"
-      />
-      <NoVideosHeader>Oops! Something Went Wrong</NoVideosHeader>
-      <NoVideosSubtitle>
-        We are having some trouble to complete your request. <br />
-        Please try again.
-      </NoVideosSubtitle>
-      <RetryButton onClick={this.onRetryButtonClicked}>Retry</RetryButton>
-    </FailureViewContainer>
+    <ThemeContext.Consumer>
+      {value => {
+        const {isDarkTheme} = value
+
+        return (
+          <FailureViewContainer>
+            <NoVideosImage
+              src="https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png"
+              alt="failure view"
+            />
+            <NoVideosHeader color={isDarkTheme ? ' #f9f9f9' : '#231f20'}>
+              Oops! Something Went Wrong
+            </NoVideosHeader>
+            <NoVideosSubtitle color={isDarkTheme ? ' #f9f9f9' : '#231f20'}>
+              We are having some trouble to complete your request. <br />
+              Please try again.
+            </NoVideosSubtitle>
+            <RetryButton onClick={this.onRetryButtonClicked}>Retry</RetryButton>
+          </FailureViewContainer>
+        )
+      }}
+    </ThemeContext.Consumer>
   )
 
   renderLoadingView = () => (
@@ -99,39 +111,66 @@ class Trending extends Component {
     </div>
   )
 
-  renderTrendingVideos = () => {
-    const {videosData} = this.state
+  renderTrendingVideos = () => (
+    <ThemeContext.Consumer>
+      {value => {
+        const {isDarkTheme} = value
+        const {videosData} = this.state
 
-    return (
-      <>
-        <TrendingHeaderContainer>
-          <TrendingIconContainer>
-            <HiFire size="30" />
-          </TrendingIconContainer>
-          <TrendingHeading>Trending</TrendingHeading>
-        </TrendingHeaderContainer>
-        <TrendingVideosGrp>
-          {videosData.map(eachItem => (
-            <TrendingVideoListItem key={eachItem.id}>
-              <TrendingVideoThumbnail
-                src={eachItem.thumbnailUrl}
-                alt="video thumbnail"
-              />
-              <TrendingVideoDetailsContainer>
-                <VideoTitle>{eachItem.title}</VideoTitle>
-                <VideoChannel>{eachItem.channel.name}</VideoChannel>
-                <ViewsAndDateContainer>
-                  <ViewsDateText>{eachItem.viewCount}</ViewsDateText>
-                  <BsDot />
-                  <ViewsDateText>{eachItem.publishedAt}</ViewsDateText>
-                </ViewsAndDateContainer>
-              </TrendingVideoDetailsContainer>
-            </TrendingVideoListItem>
-          ))}
-        </TrendingVideosGrp>
-      </>
-    )
-  }
+        return (
+          <>
+            <TrendingHeaderContainer
+              bgcolor={isDarkTheme ? '#212121' : ' #f9f9f9'}
+            >
+              <TrendingIconContainer
+                bgcolor={isDarkTheme ? '#000000' : ' #e2e8f0'}
+              >
+                <HiFire size="30" />
+              </TrendingIconContainer>
+              <TrendingHeading color={isDarkTheme ? ' #f9f9f9' : '#231f20'}>
+                Trending
+              </TrendingHeading>
+            </TrendingHeaderContainer>
+            <TrendingVideosGrp>
+              {videosData.map(eachItem => (
+                <TrendingVideoListItem key={eachItem.id}>
+                  <StyledLink to={`/videos/${eachItem.id}`}>
+                    <TrendingVideoThumbnail
+                      src={eachItem.thumbnailUrl}
+                      alt="video thumbnail"
+                    />
+                    <TrendingVideoDetailsContainer>
+                      <VideoTitle color={isDarkTheme ? ' #f9f9f9' : '#231f20'}>
+                        {eachItem.title}
+                      </VideoTitle>
+                      <VideoChannel
+                        color={isDarkTheme ? ' #7e858e' : '#231f20'}
+                      >
+                        {eachItem.channel.name}
+                      </VideoChannel>
+                      <ViewsAndDateContainer>
+                        <ViewsDateText
+                          color={isDarkTheme ? ' #7e858e' : '#231f20'}
+                        >
+                          {eachItem.viewCount}
+                        </ViewsDateText>
+                        <BsDot />
+                        <ViewsDateText
+                          color={isDarkTheme ? ' #7e858e' : '#231f20'}
+                        >
+                          {eachItem.publishedAt}
+                        </ViewsDateText>
+                      </ViewsAndDateContainer>
+                    </TrendingVideoDetailsContainer>
+                  </StyledLink>
+                </TrendingVideoListItem>
+              ))}
+            </TrendingVideosGrp>
+          </>
+        )
+      }}
+    </ThemeContext.Consumer>
+  )
 
   renderAllVideos = () => {
     const {apiStatus} = this.state
@@ -150,7 +189,20 @@ class Trending extends Component {
 
   render() {
     return (
-      <TrendingPageContainer>{this.renderAllVideos()}</TrendingPageContainer>
+      <ThemeContext.Consumer>
+        {value => {
+          const {isDarkTheme} = value
+
+          return (
+            <TrendingPageContainer
+              data-testid="trending"
+              bgcolor={isDarkTheme ? '#0f0f0f' : ' #f9f9f9'}
+            >
+              {this.renderAllVideos()}
+            </TrendingPageContainer>
+          )
+        }}
+      </ThemeContext.Consumer>
     )
   }
 }

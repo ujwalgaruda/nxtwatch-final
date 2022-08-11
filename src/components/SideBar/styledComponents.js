@@ -5,13 +5,13 @@ import {HiFire} from 'react-icons/hi'
 import {SiYoutubegaming} from 'react-icons/si'
 import {BiListPlus} from 'react-icons/bi'
 
-export const SideBarContainer = styled.div`
+export const SideBarContainer = styled.nav`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 90vh;
   width: 300px;
-  padding-left: 30px;
+  background-color: ${props => props.bgcolor};
   @media screen and (max-width: 768px) {
     display: none;
     position: absolute;
@@ -32,9 +32,12 @@ export const SideBarListItem = styled.li`
   align-items: center;
   padding-top: 10px;
   padding-bottom: 10px;
+  padding-left: 20px;
   margin-top: 10px;
+  background-color: ${props => props.bgcolor};
+  //   background-color: ${props => props.bgcolor};
 
-  background-color: ${props => (props.isactive ? '#e2e8f0' : '#ffffff')};
+  //   background-color: ${props => (props.isactive ? '#e2e8f0' : '#ffffff')};
 `
 export const SideBarIcon = styled.div`
   width: 30px;
@@ -47,18 +50,20 @@ export const SideBarItemText = styled.p`
   margin-left: 10px;
   margin-bottom: 0;
   font-weight: ${props => (props.isactive ? 'bold' : '400')};
-  color: #000000;
+  color: ${props => props.color};
 `
 export const SideBarBottomContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 100%;
+  padding-left: 20px;
 `
 
 export const BottomHeading = styled.p`
   font-family: 'Roboto';
   font-size: 20px;
+  color: ${props => props.color};
 `
 export const BottomIconsContainer = styled.div`
   display: flex;
@@ -73,13 +78,13 @@ export const BottomText = styled.p`
   font-size: 16px;
   font-weight: bold;
   width: 80%;
+  color: ${props => props.color};
 `
 export const StyledLink = styled(Link)`
   text-decoration: none;
   display: flex;
   align-items: center;
-
-  color: ${props => (props.isactive ? '#ff0000' : '#475569')};
+  color: ${props => props.fill};
 `
 export const HomeIcon = styled(AiFillHome)`
   width: 20px;

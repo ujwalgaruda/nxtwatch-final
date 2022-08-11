@@ -23,6 +23,11 @@ import {
   TitleContainer,
   SubscribersText,
   ChannelName,
+  FailureViewContainer,
+  NoVideosHeader,
+  NoVideosImage,
+  NoVideosSubtitle,
+  RetryButton,
 } from './styledComponents'
 import ThemeContext from '../../context/ThemeContext'
 
@@ -38,9 +43,15 @@ class VideoItemDetails extends Component {
     videoPageInfo: {},
     apiStatus: apiStatusConstants.initial,
     isSaved: false,
+    isLiked: false,
+    isUnliked: false,
   }
 
   componentDidMount() {
+    this.getVideoDetails()
+  }
+
+  onRetryButtonClicked = () => {
     this.getVideoDetails()
   }
 
@@ -94,12 +105,25 @@ class VideoItemDetails extends Component {
     </div>
   )
 
-  renderFailureView = () => <div>Failure</div>
+  renderFailureView = () => (
+    <FailureViewContainer>
+      <NoVideosImage
+        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png"
+        alt="failure view"
+      />
+      <NoVideosHeader>Oops! Something Went Wrong</NoVideosHeader>
+      <NoVideosSubtitle>
+        We are having some trouble to complete your request. <br />
+        Please try again.
+      </NoVideosSubtitle>
+      <RetryButton onClick={this.onRetryButtonClicked}>Retry</RetryButton>
+    </FailureViewContainer>
+  )
 
   renderVideoPlayerPage = () => (
     <ThemeContext.Consumer>
       {value => {
-        const {videoPageInfo, isSaved} = this.state
+        const {videoPageInfo, isSaved, isLiked, isUnliked} = this.state
         const {videoDetails} = videoPageInfo
         const {
           videoUrl,
@@ -111,50 +135,85 @@ class VideoItemDetails extends Component {
         } = videoDetails
         const {profileImageUrl, name, subscriberCount} = channel
 
-        const {onSaveButtonClick} = value
+        const {onSaveButtonClick, isDarkTheme} = value
 
         const saveButtonClicked = () => {
           this.setState(prevState => ({isSaved: !prevState.isSaved}))
           onSaveButtonClick(videoDetails)
         }
 
+        const onLikeBtnClick = () => {
+          this.setState(prevState => ({
+            isLiked: !prevState.isLiked,
+            isUnliked: false,
+          }))
+        }
+
+        const onUnlikeBtnClick = () => {
+          this.setState(prevState => ({
+            isUnliked: !prevState.isUnliked,
+            isLiked: false,
+          }))
+        }
+
         return (
           <>
             <ReactPlayer url={videoUrl} width="100%" height="400px" controls />
             <TextContainer>
-              <VideoTitle>{title}</VideoTitle>
-              <ViewsAndDateContainer>
+              <VideoTitle color={isDarkTheme ? '#ffffff' : '#000000'}>
+                {title}
+              </VideoTitle>
+              <ViewsAndDateContainer
+                color={isDarkTheme ? ' #64748b' : ' #475569'}
+              >
                 <ViewsDateText>{`${viewCount} views`}</ViewsDateText>
                 <BsDot />
                 <ViewsDateText>{publishedAt}</ViewsDateText>
               </ViewsAndDateContainer>
               <IconsContainer>
-                <IconButtons type="button">
-                  <LikeIcon size="30" color="#475569" />
-                  <IconText>Like</IconText>
+                <IconButtons type="button" onClick={onLikeBtnClick}>
+                  <LikeIcon
+                    size="30"
+                    color={isLiked ? ' #2563eb' : '#64748b'}
+                  />
+                  <IconText isLiked={isLiked ? ' #2563eb' : '#64748b'}>
+                    Like
+                  </IconText>
                 </IconButtons>
-                <IconButtons type="button">
-                  <UnlikeButton size="30" color="#475569" />
-                  <IconText>Unlike</IconText>
+                <IconButtons type="button" onClick={onUnlikeBtnClick}>
+                  <UnlikeButton
+                    size="30"
+                    color={isUnliked ? '#2563eb' : '#64748b'}
+                  />
+                  <IconText isUnliked={isUnliked ? '#2563eb' : '#64748b'}>
+                    Dislike
+                  </IconText>
                 </IconButtons>
-                <IconButtons
-                  type="button"
-                  onClick={saveButtonClicked}
-                  isSaved={isSaved}
-                >
-                  <SavedIcon size="30" color="#475569" />
-                  <IconText>Save</IconText>
+                <IconButtons type="button" onClick={saveButtonClicked}>
+                  <SavedIcon
+                    size="30"
+                    color={isSaved ? '#2563eb' : '#64748b'}
+                  />
+                  <IconText isSaved={isSaved ? '#2563eb' : '#64748b'}>
+                    {isSaved ? 'Saved' : 'Save'}
+                  </IconText>
                 </IconButtons>
               </IconsContainer>
               <Line />
               <ProfileAndTitleContainer>
                 <ProfileImage src={profileImageUrl} alt="channel logo" />
                 <TitleContainer>
-                  <ChannelName>{name}</ChannelName>
-                  <SubscribersText>{`${subscriberCount} subscribers`}</SubscribersText>
+                  <ChannelName color={isDarkTheme ? '#ffffff' : '#000000'}>
+                    {name}
+                  </ChannelName>
+                  <SubscribersText
+                    color={isDarkTheme ? '#64748b' : '#475569'}
+                  >{`${subscriberCount} subscribers`}</SubscribersText>
                 </TitleContainer>
               </ProfileAndTitleContainer>
-              <VideoDescription>{description}</VideoDescription>
+              <VideoDescription color={isDarkTheme ? '#64748b' : '#475569'}>
+                {description}
+              </VideoDescription>
             </TextContainer>
           </>
         )
@@ -178,10 +237,24 @@ class VideoItemDetails extends Component {
   }
 
   render() {
+    const {isUnliked} = this.state
+    console.log('unliked: ', isUnliked)
+
     return (
-      <VideoItemDetailsContainer>
-        {this.renderVideoPage()}
-      </VideoItemDetailsContainer>
+      <ThemeContext.Consumer>
+        {value => {
+          const {isDarkTheme} = value
+
+          return (
+            <VideoItemDetailsContainer
+              data-testid="videoItemDetails"
+              bgcolor={isDarkTheme ? '#0f0f0f' : ' #f9f9f9'}
+            >
+              {this.renderVideoPage()}
+            </VideoItemDetailsContainer>
+          )
+        }}
+      </ThemeContext.Consumer>
     )
   }
 }

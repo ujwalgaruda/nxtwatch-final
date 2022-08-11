@@ -42,6 +42,7 @@ export const VideoTitle = styled.p`
   font-size: 20px;
   margin-top: 0;
   font-weight: 400;
+  color: ${props => props.color};
 `
 
 export const ChannelName = styled.p`
@@ -49,6 +50,7 @@ export const ChannelName = styled.p`
   font-size: 16px;
   margin-top: 0;
   margin-bottom: 0;
+  color: ${props => props.color};
 `
 export const ViewsAndDateContainer = styled.div`
   display: flex;
@@ -60,6 +62,7 @@ export const ViewsAndDateContainer = styled.div`
 export const ViewsDateText = styled.p`
   font-family: 'roboto';
   font-size: 14px;
+  color: ${props => props.color};
 `
 export const StyledLink = styled(Link)`
   text-decoration: none;

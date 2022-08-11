@@ -3,9 +3,7 @@ import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
 import {RiCloseLine} from 'react-icons/ri'
 import {AiOutlineSearch} from 'react-icons/ai'
-import Header from '../Header'
 import VideoThumbnailItem from '../VideoThumbnailItem'
-import SideBar from '../SideBar'
 import {
   HomeResponsiveContainer,
   HomeWrapperContainer,
@@ -24,8 +22,10 @@ import {
   NoVideosImage,
   NoVideosSubtitle,
   HomeVideosContainer,
+  FailureViewContainer,
   RetryButton,
 } from './styledComponents'
+import ThemeContext from '../../context/ThemeContext'
 
 const apiStatusConstants = {
   initial: 'INITIAL',
@@ -40,7 +40,6 @@ class Home extends Component {
     showBanner: true,
     videosData: [],
     apiStatus: apiStatusConstants.initial,
-    activeSideItem: 'Home',
   }
 
   componentDidMount() {
@@ -63,14 +62,6 @@ class Home extends Component {
 
   onSearchClicked = () => {
     this.getHomePageVideos()
-  }
-
-  activeVideoSelected = id => {
-    this.setState({activeVideoId: id})
-  }
-
-  onchangeSideOptionChange = name => {
-    this.setState({activeSideItem: name})
   }
 
   onRetryButtonClicked = () => {
@@ -138,32 +129,63 @@ class Home extends Component {
     </BannerContainer>
   )
 
-  renderHomePageVideos = () => {
-    const {videosData} = this.state
-    const showVideosList = videosData.length > 0
+  renderHomePageVideos = () => (
+    <ThemeContext.Consumer>
+      {value => {
+        const {isDarkTheme} = value
 
-    return showVideosList ? (
-      <HomeVideosContainer>
-        <HomeVideosGroup>
-          {videosData.map(eachItem => (
-            <VideoThumbnailItem key={eachItem.id} details={eachItem} />
-          ))}
-        </HomeVideosGroup>
-      </HomeVideosContainer>
-    ) : (
-      <HomeVideosContainer>
-        <NoVideosImage
-          src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-search-results-img.png"
-          alt="no videos"
-        />
-        <NoVideosHeader>No Search Results Found</NoVideosHeader>
-        <NoVideosSubtitle>
-          Try different key words or remove search filter
-        </NoVideosSubtitle>
-        <RetryButton onClick={this.onRetryButtonClicked}>Retry</RetryButton>
-      </HomeVideosContainer>
-    )
-  }
+        const {videosData} = this.state
+        const showVideosList = videosData.length > 0
+
+        return showVideosList ? (
+          <HomeVideosContainer>
+            <HomeVideosGroup>
+              {videosData.map(eachItem => (
+                <VideoThumbnailItem key={eachItem.id} details={eachItem} />
+              ))}
+            </HomeVideosGroup>
+          </HomeVideosContainer>
+        ) : (
+          <HomeVideosContainer>
+            <NoVideosImage
+              src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-search-results-img.png"
+              alt="no videos"
+            />
+            <NoVideosHeader>No Search Results Found</NoVideosHeader>
+            <NoVideosSubtitle>
+              Try different key words or remove search filter
+            </NoVideosSubtitle>
+            <RetryButton onClick={this.onRetryButtonClicked}>Retry</RetryButton>
+          </HomeVideosContainer>
+        )
+      }}
+    </ThemeContext.Consumer>
+  )
+
+  renderFailureView = () => (
+    <ThemeContext.Consumer>
+      {value => {
+        const {isDarkTheme} = value
+
+        return (
+          <FailureViewContainer>
+            <NoVideosImage
+              src="https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png"
+              alt="failure view"
+            />
+            <NoVideosHeader color={isDarkTheme ? '#f9f9f9' : '#231f20'}>
+              Oops! Something Went Wrong
+            </NoVideosHeader>
+            <NoVideosSubtitle color={isDarkTheme ? '#f9f9f9' : '#231f20'}>
+              We are having some trouble to complete your request. <br />
+              Please try again.
+            </NoVideosSubtitle>
+            <RetryButton onClick={this.onRetryButtonClicked}>Retry</RetryButton>
+          </FailureViewContainer>
+        )
+      }}
+    </ThemeContext.Consumer>
+  )
 
   renderAllVideos = () => {
     const {apiStatus} = this.state
@@ -181,33 +203,46 @@ class Home extends Component {
   }
 
   render() {
-    const {showBanner, searchText, activeSideItem} = this.state
+    const {showBanner, searchText} = this.state
 
     return (
-      <>
-        <HomeResponsiveContainer>
-          <HomeWrapperContainer>
-            {showBanner && this.renderBanner()}
-            <HomePageContainer data-testid="home">
-              <SearchContainer>
-                <SearchBox
-                  value={searchText}
-                  placeholder="Search"
-                  onChange={this.onSearchTyped}
-                  type="search"
-                />
-                <SearchButton
-                  data-testid="searchButton"
-                  onClick={this.onSearchClicked}
-                >
-                  <AiOutlineSearch color="#64748b" />
-                </SearchButton>
-              </SearchContainer>
-              {this.renderAllVideos()}
-            </HomePageContainer>
-          </HomeWrapperContainer>
-        </HomeResponsiveContainer>
-      </>
+      <ThemeContext.Consumer>
+        {value => {
+          const {isDarkTheme} = value
+
+          return (
+            <>
+              <HomeResponsiveContainer>
+                <HomeWrapperContainer>
+                  {showBanner && this.renderBanner()}
+                  <HomePageContainer
+                    data-testid="home"
+                    bgcolor={isDarkTheme ? '#181818' : ' #f9f9f9'}
+                  >
+                    <SearchContainer>
+                      <SearchBox
+                        value={searchText}
+                        placeholder="Search"
+                        onChange={this.onSearchTyped}
+                        type="search"
+                        bgcolor={isDarkTheme ? '#0f0f0f' : ' #f9f9f9'}
+                      />
+                      <SearchButton
+                        data-testid="searchButton"
+                        onClick={this.onSearchClicked}
+                        bgcolor={isDarkTheme ? '#383838' : ' #ebebeb'}
+                      >
+                        <AiOutlineSearch color="#64748b" />
+                      </SearchButton>
+                    </SearchContainer>
+                    {this.renderAllVideos()}
+                  </HomePageContainer>
+                </HomeWrapperContainer>
+              </HomeResponsiveContainer>
+            </>
+          )
+        }}
+      </ThemeContext.Consumer>
     )
   }
 }

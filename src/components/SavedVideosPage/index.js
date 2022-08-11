@@ -6,6 +6,7 @@ import {
   SavedIconContainer,
   SavedHeading,
   SavedVideosGrp,
+  StyledLink,
   SavedVideoListItem,
   SavedVideoThumbnail,
   SavedVideoDetailsContainer,
@@ -25,34 +26,50 @@ import ThemeContext from '../../context/ThemeContext'
 const SavedVideosPage = () => (
   <ThemeContext.Consumer>
     {value => {
-      const {savedVideos} = value
+      const {savedVideos, isDarkTheme} = value
       const showNoSavedVideosView = savedVideos.length === 0
 
       const renderSavedVideosPage = () => (
         <>
-          <SavedHeaderContainer>
-            <SavedIconContainer>
+          <SavedHeaderContainer bgcolor={isDarkTheme ? '#212121' : ' #f9f9f9'}>
+            <SavedIconContainer bgcolor={isDarkTheme ? '#000000' : ' #e2e8f0'}>
               <HiFire size="30" />
             </SavedIconContainer>
-            <SavedHeading>Saved Videos</SavedHeading>
+            <SavedHeading color={isDarkTheme ? ' #f9f9f9' : '#231f20'}>
+              Saved Videos
+            </SavedHeading>
           </SavedHeaderContainer>
           <SavedVideosGrp>
             {savedVideos.map(eachItem => (
-              <SavedVideoListItem key={eachItem.id}>
-                <SavedVideoThumbnail
-                  src={eachItem.thumbnailUrl}
-                  alt="video thumbnail"
-                />
-                <SavedVideoDetailsContainer>
-                  <VideoTitle>{eachItem.title}</VideoTitle>
-                  <VideoChannel>{eachItem.channel.name}</VideoChannel>
-                  <ViewsAndDateContainer>
-                    <ViewsDateText>{eachItem.viewCount}</ViewsDateText>
-                    <BsDot />
-                    <ViewsDateText>{eachItem.publishedAt}</ViewsDateText>
-                  </ViewsAndDateContainer>
-                </SavedVideoDetailsContainer>
-              </SavedVideoListItem>
+              <StyledLink to={`/videos/${eachItem.id}`}>
+                <SavedVideoListItem key={eachItem.id}>
+                  <SavedVideoThumbnail
+                    src={eachItem.thumbnailUrl}
+                    alt="video thumbnail"
+                  />
+                  <SavedVideoDetailsContainer>
+                    <VideoTitle color={isDarkTheme ? ' #f9f9f9' : '#231f20'}>
+                      {eachItem.title}
+                    </VideoTitle>
+                    <VideoChannel color={isDarkTheme ? ' #7e858e' : '#231f20'}>
+                      {eachItem.channel.name}
+                    </VideoChannel>
+                    <ViewsAndDateContainer>
+                      <ViewsDateText
+                        color={isDarkTheme ? ' #7e858e' : '#231f20'}
+                      >
+                        {eachItem.viewCount}
+                      </ViewsDateText>
+                      <BsDot />
+                      <ViewsDateText
+                        color={isDarkTheme ? ' #7e858e' : '#231f20'}
+                      >
+                        {eachItem.publishedAt}
+                      </ViewsDateText>
+                    </ViewsAndDateContainer>
+                  </SavedVideoDetailsContainer>
+                </SavedVideoListItem>
+              </StyledLink>
             ))}
           </SavedVideosGrp>
         </>
@@ -64,15 +81,20 @@ const SavedVideosPage = () => (
             src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-saved-videos-img.png"
             alt="no saved videos"
           />
-          <NoVideosHeader>No saved videos found</NoVideosHeader>
-          <NoVideosSubtitle>
+          <NoVideosHeader color={isDarkTheme ? ' #f9f9f9' : '#231f20'}>
+            No saved videos found
+          </NoVideosHeader>
+          <NoVideosSubtitle color={isDarkTheme ? ' #f9f9f9' : '#231f20'}>
             You can save your videos while watching them
           </NoVideosSubtitle>
         </FailureViewContainer>
       )
 
       return (
-        <SavedVideosPageContainer>
+        <SavedVideosPageContainer
+          data-testid="savedVideos"
+          bgcolor={isDarkTheme ? '#0f0f0f' : ' #f9f9f9'}
+        >
           {showNoSavedVideosView
             ? renderNoVideosPage()
             : renderSavedVideosPage()}

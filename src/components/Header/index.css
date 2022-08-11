@@ -1,0 +1,46 @@
+.modal-container {
+  background-color: #ffffff;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 40px;
+  padding-right: 40px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.logout-boxtext {
+  font-family: 'Roboto';
+  font-size: 20px;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin-top: 20px;
+}
+
+.close-button {
+  background-color: transparent;
+  border: 1px solid #616e7c;
+  padding: 10px;
+  font-family: 'Roboto';
+  font-size: 18px;
+  color: #616e7c;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.confirm-btn {
+  background-color: #2563eb;
+  border: none;
+  padding: 10px;
+  font-family: 'Roboto';
+  font-size: 18px;
+  color: #ffffff;
+  border-radius: 2px;
+  cursor: pointer;
+}

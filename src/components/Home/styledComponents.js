@@ -5,6 +5,7 @@ export const HomeResponsiveContainer = styled.div`
   justify-content: center;
   margin-top: 20px;
   width: fit-content;
+  width: 100%;
 `
 export const HomeWrapperContainer = styled.div`
   display: flex;
@@ -62,7 +63,7 @@ export const CloseButton = styled.button`
   border: none;
 `
 export const HomePageContainer = styled.div`
-  background-color: #f9f9f9;
+  background-color: ${props => props.bgcolor};
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -77,15 +78,17 @@ export const SearchContainer = styled.div`
   justify-content: flex-start;
   align-items: center;
   margin-bottom: 50px;
+  border-style: none;
 `
 export const SearchBox = styled.input`
   padding: 8px;
   font-family: 'roboto';
   font-size: 18px;
-  border: 1px solid ##7e858e;
+  border: 1px solid #7e858e;
   outline: none;
   max-width: 600px;
   width: 80%;
+  background-color: ${props => props.bgcolor};
 `
 
 export const SearchButton = styled.button`
@@ -94,7 +97,7 @@ export const SearchButton = styled.button`
   padding-left: 35px;
   padding-right: 35px;
   font-size: 18px;
-  background-color: #ebebeb;
+  background-color: ${props => props.bgcolor};
   border: 1px solid #7e858e;
   outline: none;
 `
@@ -116,17 +119,18 @@ export const HomeVideosGroup = styled.ul`
   align-items: center;
 `
 export const NoVideosImage = styled.img`
-  width: 60%;
+  width: 30%;
 `
 export const NoVideosHeader = styled.h1`
   font-family: 'Roboto';
   font-size: 24px;
-  color: #231f20;
+  color: ${props => props.color};
 `
 export const NoVideosSubtitle = styled.p`
   font-family: 'Roboto';
   font-size: 18px;
-  color: #231f20;
+  color: ${props => props.color};
+  text-align: center;
 `
 export const RetryButton = styled.button`
   border-radius: 10px;
@@ -140,4 +144,11 @@ export const RetryButton = styled.button`
   padding-right: 15px;
   padding-bottom: 10px;
   color: #ffffff;
+`
+export const FailureViewContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `

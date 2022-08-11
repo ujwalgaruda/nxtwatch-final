@@ -1,5 +1,5 @@
 import {Component} from 'react'
-import {Switch, Route} from 'react-router-dom'
+import {Switch, Route, Redirect} from 'react-router-dom'
 import LoginPage from './components/LoginPage'
 import Home from './components/Home'
 import ProtectedRoute from './components/ProtectedRoute'
@@ -11,10 +11,11 @@ import VideoItemDetails from './components/VideoItemDetails'
 import './App.css'
 import ThemeContext from './context/ThemeContext'
 import SavedVideosPage from './components/SavedVideosPage'
+import NotFound from './components/NotFound'
 
 // Replace your code here
 class App extends Component {
-  state = {savedVideos: [], isDarkTheme: false}
+  state = {savedVideos: [], isDarkTheme: false, activeTab: 'Home'}
 
   onSaveButtonClick = details => {
     const {savedVideos} = this.state
@@ -39,7 +40,6 @@ class App extends Component {
 
   render() {
     const {savedVideos, isDarkTheme, isSaved} = this.state
-    console.log(savedVideos)
 
     return (
       <ThemeContext.Provider
@@ -52,26 +52,38 @@ class App extends Component {
         }}
       >
         <div className="bg-container">
-          <Header />
-          <div className="main-view">
-            <SideBar />
-            <Switch>
-              <Route path="/login" component={LoginPage} />
-              <ProtectedRoute exact path="/" component={Home} />
-              <ProtectedRoute exact path="/trending" component={Trending} />
-              <ProtectedRoute exact path="/gaming" component={Gaming} />
-              <ProtectedRoute
-                exact
-                path="/videos/:id"
-                component={VideoItemDetails}
-              />
-              <ProtectedRoute
-                exact
-                path="/saved-videos"
-                component={SavedVideosPage}
-              />
-            </Switch>
-          </div>
+          <Switch>
+            <Route path="/login" component={LoginPage} />
+            <>
+              <Header />
+              <div className="main-view">
+                <SideBar />
+                <div className="content">
+                  <Switch>
+                    <ProtectedRoute exact path="/" component={Home} />
+                    <ProtectedRoute
+                      exact
+                      path="/trending"
+                      component={Trending}
+                    />
+                    <ProtectedRoute exact path="/gaming" component={Gaming} />
+                    <ProtectedRoute
+                      exact
+                      path="/videos/:id"
+                      component={VideoItemDetails}
+                    />
+                    <ProtectedRoute
+                      exact
+                      path="/saved-videos"
+                      component={SavedVideosPage}
+                    />
+                    <Route path="/notfound" component={NotFound} />
+                    <Redirect to="/notfound" />
+                  </Switch>
+                </div>
+              </div>
+            </>
+          </Switch>
         </div>
       </ThemeContext.Provider>
     )

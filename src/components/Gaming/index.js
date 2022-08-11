@@ -7,6 +7,7 @@ import {
   GamingPageContainer,
   GamingHeaderContainer,
   GamingIconContainer,
+  StyledLink,
   GamingHeading,
   GamingVideosGrp,
   GamingVideoListItem,
@@ -20,6 +21,7 @@ import {
   NoVideosSubtitle,
   RetryButton,
 } from './styledComponents'
+import ThemeContext from '../../context/ThemeContext'
 
 const apiStatusConstants = {
   initial: 'INITIAL',
@@ -41,7 +43,7 @@ class Gaming extends Component {
 
   getGamingVideos = async () => {
     this.setState({apiStatus: apiStatusConstants.inProgress})
-    const url = 'https://apis.ccbp.in/videos/gamin'
+    const url = 'https://apis.ccbp.in/videos/gaming'
     const jwtToken = Cookies.get('jwt_token')
     const options = {
       headers: {
@@ -71,18 +73,28 @@ class Gaming extends Component {
   }
 
   renderFailureView = () => (
-    <FailureViewContainer>
-      <NoVideosImage
-        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png"
-        alt="failure view"
-      />
-      <NoVideosHeader>Oops! Something Went Wrong</NoVideosHeader>
-      <NoVideosSubtitle>
-        We are having some trouble to complete your request. <br />
-        Please try again.
-      </NoVideosSubtitle>
-      <RetryButton onClick={this.onRetryButtonClicked}>Retry</RetryButton>
-    </FailureViewContainer>
+    <ThemeContext.Consumer>
+      {value => {
+        const {isDarkTheme} = value
+
+        return (
+          <FailureViewContainer>
+            <NoVideosImage
+              src="https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png"
+              alt="failure view"
+            />
+            <NoVideosHeader color={isDarkTheme ? ' #f9f9f9' : '#231f20'}>
+              Oops! Something Went Wrong
+            </NoVideosHeader>
+            <NoVideosSubtitle color={isDarkTheme ? ' #f9f9f9' : '#231f20'}>
+              We are having some trouble to complete your request. <br />
+              Please try again.
+            </NoVideosSubtitle>
+            <RetryButton onClick={this.onRetryButtonClicked}>Retry</RetryButton>
+          </FailureViewContainer>
+        )
+      }}
+    </ThemeContext.Consumer>
   )
 
   renderLoadingView = () => (
@@ -91,34 +103,51 @@ class Gaming extends Component {
     </div>
   )
 
-  renderGamingVideos = () => {
-    const {videosData} = this.state
+  renderGamingVideos = () => (
+    <ThemeContext.Consumer>
+      {value => {
+        const {isDarkTheme} = value
+        const {videosData} = this.state
 
-    return (
-      <>
-        <GamingHeaderContainer>
-          <GamingIconContainer>
-            <SiYoutubegaming size="30" />
-          </GamingIconContainer>
-          <GamingHeading>Gaming</GamingHeading>
-        </GamingHeaderContainer>
-        <GamingVideosGrp>
-          {videosData.map(eachItem => (
-            <GamingVideoListItem key={eachItem.id}>
-              <GamingVideoThumbnail
-                src={eachItem.thumbnailUrl}
-                alt="video thumbnail"
-              />
-              <GamingVideoDetailsContainer>
-                <VideoTitle>{eachItem.title}</VideoTitle>
-                <VideoChannel>{`${eachItem.viewCount} Watching Worldwide`}</VideoChannel>
-              </GamingVideoDetailsContainer>
-            </GamingVideoListItem>
-          ))}
-        </GamingVideosGrp>
-      </>
-    )
-  }
+        return (
+          <>
+            <GamingHeaderContainer
+              bgcolor={isDarkTheme ? '#212121' : ' #f9f9f9'}
+            >
+              <GamingIconContainer
+                bgcolor={isDarkTheme ? '#000000' : ' #e2e8f0'}
+              >
+                <SiYoutubegaming size="30" />
+              </GamingIconContainer>
+              <GamingHeading color={isDarkTheme ? ' #f9f9f9' : '#231f20'}>
+                Gaming
+              </GamingHeading>
+            </GamingHeaderContainer>
+            <GamingVideosGrp>
+              {videosData.map(eachItem => (
+                <GamingVideoListItem key={eachItem.id}>
+                  <StyledLink to={`/videos/${eachItem.id}`}>
+                    <GamingVideoThumbnail
+                      src={eachItem.thumbnailUrl}
+                      alt="video thumbnail"
+                    />
+                    <GamingVideoDetailsContainer>
+                      <VideoTitle color={isDarkTheme ? ' #f9f9f9' : '#231f20'}>
+                        {eachItem.title}
+                      </VideoTitle>
+                      <VideoChannel
+                        color={isDarkTheme ? ' #7e858e' : '#231f20'}
+                      >{`${eachItem.viewCount} Watching Worldwide`}</VideoChannel>
+                    </GamingVideoDetailsContainer>
+                  </StyledLink>
+                </GamingVideoListItem>
+              ))}
+            </GamingVideosGrp>
+          </>
+        )
+      }}
+    </ThemeContext.Consumer>
+  )
 
   renderAllVideos = () => {
     const {apiStatus} = this.state
@@ -136,8 +165,22 @@ class Gaming extends Component {
   }
 
   render() {
-    console.log(this.state)
-    return <GamingPageContainer>{this.renderAllVideos()}</GamingPageContainer>
+    return (
+      <ThemeContext.Consumer>
+        {value => {
+          const {isDarkTheme} = value
+
+          return (
+            <GamingPageContainer
+              data-testid="gaming"
+              bgcolor={isDarkTheme ? '#0f0f0f' : ' #f9f9f9'}
+            >
+              {this.renderAllVideos()}
+            </GamingPageContainer>
+          )
+        }}
+      </ThemeContext.Consumer>
+    )
   }
 }
 

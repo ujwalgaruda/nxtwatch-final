@@ -41,30 +41,30 @@ const SavedVideosPage = () => (
           </SavedHeaderContainer>
           <SavedVideosGrp>
             {savedVideos.map(eachItem => (
-              <StyledLink to={`/videos/${eachItem.id}`}>
-                <SavedVideoListItem key={eachItem.id}>
+              <StyledLink to={`/videos/${eachItem.videoDetails.id}`}>
+                <SavedVideoListItem key={eachItem.videoDetails.id}>
                   <SavedVideoThumbnail
-                    src={eachItem.thumbnailUrl}
+                    src={eachItem.videoDetails.thumbnailUrl}
                     alt="video thumbnail"
                   />
                   <SavedVideoDetailsContainer>
                     <VideoTitle color={isDarkTheme ? ' #f9f9f9' : '#231f20'}>
-                      {eachItem.title}
+                      {eachItem.videoDetails.title}
                     </VideoTitle>
                     <VideoChannel color={isDarkTheme ? ' #7e858e' : '#231f20'}>
-                      {eachItem.channel.name}
+                      {eachItem.videoDetails.channel.name}
                     </VideoChannel>
                     <ViewsAndDateContainer>
                       <ViewsDateText
                         color={isDarkTheme ? ' #7e858e' : '#231f20'}
                       >
-                        {eachItem.viewCount}
+                        {eachItem.videoDetails.viewCount}
                       </ViewsDateText>
                       <BsDot />
                       <ViewsDateText
                         color={isDarkTheme ? ' #7e858e' : '#231f20'}
                       >
-                        {eachItem.publishedAt}
+                        {eachItem.videoDetails.publishedAt}
                       </ViewsDateText>
                     </ViewsAndDateContainer>
                   </SavedVideoDetailsContainer>

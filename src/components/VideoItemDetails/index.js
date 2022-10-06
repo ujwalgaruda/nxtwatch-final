@@ -42,7 +42,6 @@ class VideoItemDetails extends Component {
   state = {
     videoPageInfo: {},
     apiStatus: apiStatusConstants.initial,
-    isSaved: false,
     isLiked: false,
     isUnliked: false,
   }
@@ -123,9 +122,10 @@ class VideoItemDetails extends Component {
   renderVideoPlayerPage = () => (
     <ThemeContext.Consumer>
       {value => {
-        const {videoPageInfo, isSaved, isLiked, isUnliked} = this.state
+        const {videoPageInfo, isLiked, isUnliked} = this.state
         const {videoDetails} = videoPageInfo
         const {
+          id,
           videoUrl,
           title,
           viewCount,
@@ -135,11 +135,10 @@ class VideoItemDetails extends Component {
         } = videoDetails
         const {profileImageUrl, name, subscriberCount} = channel
 
-        const {onSaveButtonClick, isDarkTheme} = value
+        const {onSaveButtonClick, isDarkTheme, savedVideos} = value
 
         const saveButtonClicked = () => {
-          this.setState(prevState => ({isSaved: !prevState.isSaved}))
-          onSaveButtonClick(videoDetails)
+          onSaveButtonClick({videoDetails})
         }
 
         const onLikeBtnClick = () => {
@@ -154,6 +153,26 @@ class VideoItemDetails extends Component {
             isUnliked: !prevState.isUnliked,
             isLiked: false,
           }))
+        }
+
+        const savedOrNot = savedVideos.find(
+          eachItem => eachItem.videoDetails.id === id,
+        )
+
+        console.log('SavedVideos:', savedVideos)
+
+        let saveText
+        let textColor
+        console.log('savedOrNot:', savedOrNot)
+
+        if (savedOrNot) {
+          saveText = 'Saved'
+          textColor = '#2563eb'
+          console.log('Saved')
+        } else {
+          saveText = 'Save'
+          textColor = '#64748b'
+          console.log('Save')
         }
 
         return (
@@ -192,11 +211,9 @@ class VideoItemDetails extends Component {
                 <IconButtons type="button" onClick={saveButtonClicked}>
                   <SavedIcon
                     size="30"
-                    color={isSaved ? '#2563eb' : '#64748b'}
+                    color={savedOrNot ? '#2563eb' : '#64748b'}
                   />
-                  <IconText isSaved={isSaved ? '#2563eb' : '#64748b'}>
-                    {isSaved ? 'Saved' : 'Save'}
-                  </IconText>
+                  <IconText isSaved={textColor}>{saveText}</IconText>
                 </IconButtons>
               </IconsContainer>
               <Line />
@@ -237,9 +254,6 @@ class VideoItemDetails extends Component {
   }
 
   render() {
-    const {isUnliked} = this.state
-    console.log('unliked: ', isUnliked)
-
     return (
       <ThemeContext.Consumer>
         {value => {

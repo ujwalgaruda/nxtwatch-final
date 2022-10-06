@@ -155,7 +155,9 @@ class Home extends Component {
             <NoVideosSubtitle>
               Try different key words or remove search filter
             </NoVideosSubtitle>
-            <RetryButton onClick={this.onRetryButtonClicked}>Retry</RetryButton>
+            <RetryButton onClick={this.onRetryButtonClicked} type="button">
+              Retry
+            </RetryButton>
           </HomeVideosContainer>
         )
       }}
@@ -180,7 +182,9 @@ class Home extends Component {
               We are having some trouble to complete your request. <br />
               Please try again.
             </NoVideosSubtitle>
-            <RetryButton onClick={this.onRetryButtonClicked}>Retry</RetryButton>
+            <RetryButton onClick={this.onRetryButtonClicked} type="button">
+              Retry
+            </RetryButton>
           </FailureViewContainer>
         )
       }}
@@ -228,6 +232,7 @@ class Home extends Component {
                         bgcolor={isDarkTheme ? '#0f0f0f' : ' #f9f9f9'}
                       />
                       <SearchButton
+                        type="button"
                         data-testid="searchButton"
                         onClick={this.onSearchClicked}
                         bgcolor={isDarkTheme ? '#383838' : ' #ebebeb'}

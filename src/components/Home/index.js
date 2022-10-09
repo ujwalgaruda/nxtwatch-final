@@ -131,9 +131,7 @@ class Home extends Component {
 
   renderHomePageVideos = () => (
     <ThemeContext.Consumer>
-      {value => {
-        const {isDarkTheme} = value
-
+      {() => {
         const {videosData} = this.state
         const showVideosList = videosData.length > 0
 

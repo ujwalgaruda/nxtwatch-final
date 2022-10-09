@@ -15,7 +15,7 @@ import NotFound from './components/NotFound'
 
 // Replace your code here
 class App extends Component {
-  state = {savedVideos: [], isDarkTheme: false, activeTab: 'Home'}
+  state = {savedVideos: [], isDarkTheme: false}
 
   onSaveButtonClick = details => {
     const {savedVideos} = this.state

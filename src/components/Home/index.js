@@ -117,7 +117,7 @@ class Home extends Component {
     <BannerContainer data-testid="banner">
       <LogoAndCloseContainer>
         <BannerLogo
-          src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/YouTube_dark_logo_2017.svg/1280px-YouTube_dark_logo_2017.svg.png"
           alt="nxt watch logo"
         />
         <CloseButton data-testid="close" onClick={this.onClosedBanner}>

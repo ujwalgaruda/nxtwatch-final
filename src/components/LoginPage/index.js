@@ -88,7 +88,7 @@ class LoginPage extends Component {
       <BgContainer>
         <ResponsiveContainer>
           <LogoImage
-            src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
+            src="https://www.freeiconspng.com/thumbs/youtube-logo-png/youtube-logo-png-transparent-image-5.png"
             alt="website logo"
           />
           <LoginForm onSubmit={this.onLoginSubmit}>

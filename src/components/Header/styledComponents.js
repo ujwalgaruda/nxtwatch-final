@@ -2,8 +2,8 @@ import styled from 'styled-components'
 import {Link} from 'react-router-dom'
 
 export const HeaderLargeContainer = styled.nav`
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   padding-left: 50px;
   padding-right: 50px;
   display: flex;
@@ -33,6 +33,8 @@ export const HeaderLogo = styled.img`
   width: 100px;
   @media screen and (min-width: 768px) {
     width: 120px;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 `
 export const HeaderIconsContainer = styled.div`

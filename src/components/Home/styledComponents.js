@@ -3,7 +3,6 @@ import styled from 'styled-components'
 export const HomeResponsiveContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 20px;
   width: fit-content;
   width: 100%;
 `
@@ -21,7 +20,7 @@ export const BannerContainer = styled.div`
   align-items: center;
   width: 100%;
   padding: 30px;
-  background-image: url('https://assets.ccbp.in/frontend/react-js/nxt-watch-banner-bg.png');
+  background-image: url('https://www.gstatic.com/youtube/img/promos/growth/8710ab73762a16afef8c5d8a0b69c7a7bec473b559ca9d7f449c3a3b9cdccc46_2560x520.jpeg');
   background-size: cover;
 `
 export const LogoAndCloseContainer = styled.div`
@@ -31,7 +30,7 @@ export const LogoAndCloseContainer = styled.div`
   width: 100%;
 `
 export const BannerLogo = styled.img`
-  width: 200px;
+  width: 120px;
 `
 export const BannerHeader = styled.p`
   font-size: 18px;
@@ -43,7 +42,7 @@ export const BannerHeader = styled.p`
 `
 
 export const BannerButton = styled.button`
-  border: 1px solid #000000;
+  border: 1px solid #ffffff;
   font-family: 'roboto';
   font-size: 20px;
   font-weight: 400;
@@ -54,6 +53,7 @@ export const BannerButton = styled.button`
   padding-right: 20px;
   align-self: flex-start;
   margin-top: 30px;
+  color: white;
 `
 export const CloseButton = styled.button`
   font-size: 24px;
@@ -61,6 +61,7 @@ export const CloseButton = styled.button`
   background-color: transparent;
   outline: none;
   border: none;
+  color: white;
 `
 export const HomePageContainer = styled.div`
   background-color: ${props => props.bgcolor};

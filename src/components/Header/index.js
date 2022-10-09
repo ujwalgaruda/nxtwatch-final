@@ -51,18 +51,14 @@ const Header = props => {
                 <HeaderLogo
                   src={
                     isDarkTheme
-                      ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-dark-theme-img.png'
-                      : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png'
+                      ? 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/YouTube_dark_logo_2017.svg/1280px-YouTube_dark_logo_2017.svg.png'
+                      : 'https://www.freeiconspng.com/thumbs/youtube-logo-png/youtube-logo-png-transparent-image-5.png'
                   }
                   alt="website logo"
                 />
               </RedirectLink>
               <HeaderIconsContainer>
-                <ThemeButton
-                  type="button"
-                  data-testid="theme"
-                  onClick={onThemeButtonCLicked}
-                >
+                <ThemeButton type="button" onClick={onThemeButtonCLicked}>
                   {renderThemeButton()}
                 </ThemeButton>
                 <GiHamburgerMenu
@@ -89,7 +85,6 @@ const Header = props => {
                         <button
                           className="close-button"
                           type="button"
-                          testid="closeButton"
                           onClick={() => close()}
                         >
                           Cancel
@@ -115,19 +110,15 @@ const Header = props => {
                 <HeaderLogo
                   src={
                     isDarkTheme
-                      ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-dark-theme-img.png'
-                      : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png'
+                      ? 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/YouTube_dark_logo_2017.svg/1280px-YouTube_dark_logo_2017.svg.png'
+                      : '/Youtube-logo.png'
                   }
                   alt="website logo"
                 />
               </RedirectLink>
 
               <HeaderLargeIconsContainer>
-                <ThemeButton
-                  type="button"
-                  data-testid="theme"
-                  onClick={onThemeButtonCLicked}
-                >
+                <ThemeButton type="button" onClick={onThemeButtonCLicked}>
                   {renderThemeButton()}
                 </ThemeButton>
                 <ProfileImageIcon
@@ -156,7 +147,6 @@ const Header = props => {
                         <button
                           className="close-button"
                           type="button"
-                          testid="closeButton"
                           onClick={() => close()}
                         >
                           Cancel
